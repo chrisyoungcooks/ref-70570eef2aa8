@@ -43,22 +43,6 @@
   h2 { font-family: var(--serif); font-weight: 600; font-size: clamp(23px, 3.4vw, 30px); }
   .sec-intro { max-width: 68ch; color: var(--ink-soft); margin: 12px 0 20px; }
   .sec-intro strong { color: var(--ink); }
-  h4.sub { font-family: var(--serif); font-size: 19px; margin: 22px 0 12px; color: var(--ink); }
-  h4.sub .mark { font-weight: 700; }
-  h4.sub .mark.good { color: var(--good); }
-  h4.sub .mark.bad { color: var(--bad); }
-
-  /* ---------- wearer banner ---------- */
-  .wearer {
-    display: flex; flex-wrap: wrap; gap: 10px 26px; align-items: center;
-    background: var(--card); border: 1px solid var(--line); border-left: 5px solid var(--piping);
-    border-radius: 4px; padding: 16px 20px; margin: 4px 0 24px;
-  }
-  .wearer .stat { display: flex; flex-direction: column; }
-  .wearer .stat b { font-size: 21px; font-family: var(--serif); color: var(--piping); white-space: nowrap; }
-  .wearer .stat span { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); }
-  .wearer .note { flex: 1 1 260px; font-size: 14.5px; color: var(--ink-soft); min-width: 240px; }
-  .wearer .note strong { color: var(--bad); }
 
   /* ---------- photos ---------- */
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin-bottom: 10px; }
@@ -69,22 +53,18 @@
   .grid figure.ph.natural, .duo figure.ph.natural { grid-column: 1 / -1; }
   figure.ph figcaption { padding: 9px 11px 11px; font-size: 13px; color: var(--ink-soft); line-height: 1.4; }
   .tag { position: absolute; top: 8px; left: 8px; z-index: 2; font-size: 11px; font-weight: 700; letter-spacing: .06em; background: rgba(44,33,21,.82); color: #f6f1e6; border-radius: 3px; padding: 2px 7px; }
-  /* big clear good/bad badges */
-  figure.b-good::after, figure.b-bad::after {
-    position: absolute; top: 7px; right: 7px; z-index: 2;
+  figure.b-good::after {
+    content: "✓"; position: absolute; top: 7px; right: 7px; z-index: 2;
     width: 32px; height: 32px; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    font-size: 19px; font-weight: 800; color: #fff;
+    font-size: 19px; font-weight: 800; color: #fff; background: var(--good);
     border: 2px solid #fff; box-shadow: 0 1px 5px rgba(0,0,0,.35);
   }
-  figure.b-good::after { content: "✓"; background: var(--good); }
-  figure.b-bad::after  { content: "✗"; background: var(--bad); }
 
   /* ---------- measurements ---------- */
-  .spec-flex { display: grid; grid-template-columns: 1.1fr 1fr; gap: 26px; align-items: start; margin-bottom: 8px; }
-  .spec-flex > * { min-width: 0; }
-  .diagram { background: var(--card); border: 1px solid var(--line); border-radius: 4px; padding: 14px; }
+  .diagram { background: var(--card); border: 1px solid var(--line); border-radius: 4px; padding: 14px; max-width: 760px; margin: 6px auto 26px; }
   .diagram svg { width: 100%; height: auto; display: block; }
+  .table-scroll { overflow-x: auto; }
   table.spec { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--line); font-size: 14.5px; }
   table.spec caption { text-align: left; font-family: var(--serif); font-size: 17px; padding: 12px 14px 6px; font-weight: 600; }
   table.spec th, table.spec td { padding: 8px 12px; border-top: 1px solid var(--line); text-align: left; vertical-align: top; }
@@ -92,30 +72,28 @@
   table.spec td.num { font-variant-numeric: tabular-nums; font-weight: 700; color: var(--piping); white-space: nowrap; }
   table.spec td.v1 { color: var(--bad); }
   table.spec td.ok { color: var(--good); }
-  .table-scroll { overflow-x: auto; }
-  .unit-note { font-size: 13px; color: var(--ink-soft); margin: 8px 2px 0; }
+  table.spec tr.group td {
+    background: #efe7d3; font-size: 12px; letter-spacing: .1em; text-transform: uppercase;
+    font-weight: 700; color: var(--ink-soft); padding: 7px 12px;
+  }
+  table.spec tr.group td .gmark { font-size: 13px; }
+  table.spec tr.group td .gmark.bad { color: var(--bad); }
+  table.spec tr.group td .gmark.good { color: var(--good); }
+  .unit-note { font-size: 13px; color: var(--ink-soft); margin: 8px 2px 0; max-width: 76ch; }
 
   /* ---------- detail cards ---------- */
-  .fix { background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--piping); border-radius: 4px; padding: 22px 22px 18px; margin-bottom: 22px; }
+  .fix { background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--good); border-radius: 4px; padding: 22px 22px 18px; margin-bottom: 22px; }
   .fix h3 { font-family: var(--serif); font-size: 22px; font-weight: 600; margin-bottom: 6px; }
   .fix h3 .n { color: var(--piping-soft); margin-right: 6px; }
   .fix p { max-width: 74ch; color: var(--ink-soft); margin-bottom: 14px; }
   .fix p strong { color: var(--ink); }
-  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .side { display: flex; flex-direction: column; gap: 8px; }
-  .side-label { font-size: 12.5px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: #fff; border-radius: 3px; padding: 6px 12px; align-self: flex-start; }
-  .side-label.correct { background: var(--good); }
-  .side-label.current { background: var(--bad); }
-  .side .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .side .solo { display: grid; grid-template-columns: 1fr; gap: 8px; }
-  .side figure.ph figcaption { font-size: 12.5px; }
+  .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 640px; }
+  .solo { display: grid; grid-template-columns: 1fr; gap: 10px; max-width: 340px; }
+  .fix figure.ph figcaption { font-size: 12.5px; }
   .callout { border: 1px dashed var(--piping-soft); background: #fbf7ec; border-radius: 4px; padding: 14px 18px; font-size: 14.5px; color: var(--ink-soft); max-width: 78ch; margin: 4px 0 26px; }
   .callout strong { color: var(--ink); }
 
-  /* ---------- keep list ---------- */
-  ul.right-list { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; margin-bottom: 26px; }
-  ul.right-list li { background: var(--card); border: 1px solid var(--line); border-radius: 4px; padding: 10px 14px 10px 38px; font-size: 14.5px; position: relative; color: var(--ink-soft); }
-  ul.right-list li::before { content: "✓"; position: absolute; left: 14px; color: var(--good); font-weight: 800; }
+  h4.sub { font-family: var(--serif); font-size: 19px; margin: 26px 0 12px; color: var(--ink); }
 
   footer { border-top: 3px double var(--piping-soft); margin-top: 42px; padding: 24px 0 60px; font-size: 14px; color: var(--ink-soft); }
   footer .wrap { display: flex; flex-direction: column; gap: 6px; }
@@ -141,11 +119,11 @@
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } figure.ph { transition: none; } }
   @media (max-width: 760px) {
     .hero { grid-template-columns: 1fr; }
-    .spec-flex { grid-template-columns: 1fr; }
-    .pair { grid-template-columns: 1fr; }
     header { padding-top: 30px; }
     section { padding-top: 36px; }
     .grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+    .duo { max-width: none; }
+    .solo { max-width: none; }
   }
 </style>
 </head>
@@ -156,15 +134,14 @@
     <div>
       <p class="eyebrow">Shirt revision guide · Version 2</p>
       <h1>The Buster Scruggs Shirt</h1>
-      <p class="lede">Thank you for the first shirt — the design is very close. This page shows what to change
-      for Version&nbsp;2. Two things matter most: <strong>the fit (smaller!)</strong> and
-      <strong>three construction details</strong>. All measurements are in <strong>inches</strong>.
-      Tap any photo to enlarge it; tap again to zoom in.</p>
+      <p class="lede">Thank you for the first shirt — the design is very close. This page shows exactly how
+      Version&nbsp;2 must be: the <strong>measurements</strong>, the <strong>correct fit</strong>, and the
+      <strong>key details</strong>. All measurements are in <strong>inches</strong>. Tap any photo to enlarge it;
+      tap again to zoom in.</p>
       <nav class="toc" aria-label="Sections">
-        <a href="#fit">1 · Fit &amp; measurements</a>
-        <a href="#details">2 · Details to improve</a>
-        <a href="#target">3 · Target photos</a>
-        <a href="#keep">4 · Already correct</a>
+        <a href="#fit">1 · Measurements</a>
+        <a href="#reference">2 · Correct fit</a>
+        <a href="#details">3 · Details</a>
       </nav>
     </div>
     <figure class="hero-img">
@@ -176,150 +153,132 @@
 
 <main class="wrap">
 
-  <!-- ============ 1. FIT ============ -->
+  <!-- ============ 1. MEASUREMENTS ============ -->
   <section id="fit">
-    <div class="sec-head"><span class="sec-num">1</span><h2>Fit — Version 2 must be smaller</h2></div>
+    <div class="sec-head"><span class="sec-num">1</span><h2>Measurements — Version 2 must be smaller</h2></div>
+    <p class="sec-intro"><strong>Version 1 was made for a much bigger man.</strong> Please cut Version&nbsp;2
+    slim, to exactly these numbers. All widths are measured with the shirt <strong>laid flat</strong>, edge to edge.</p>
 
-    <div class="wearer">
-      <div class="stat"><b>6′2″ · 188 cm</b><span>Height</span></div>
-      <div class="stat"><b>200 lb · 91 kg</b><span>Weight</span></div>
-      <div class="stat"><b>45″</b><span>Chest (body)</span></div>
-      <div class="stat"><b>17″</b><span>Neck</span></div>
-      <p class="note"><strong>Version 1 was made for a much bigger man.</strong> These are the wearer's real
-      body numbers — he is 6′2″, not 6′4″. Please cut Version&nbsp;2 slim, to the exact
-      measurements below.</p>
+    <div class="diagram">
+      <svg viewBox="0 0 720 612" role="img" aria-label="Flat shirt diagram with target measurements and wearer size">
+        <defs>
+          <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+            <path d="M0 0 L10 5 L0 10 z" fill="#6b4728"/>
+          </marker>
+        </defs>
+        <!-- shirt outline -->
+        <g stroke="#5c4c3a" stroke-width="2.5" fill="#fffdf7" stroke-linejoin="round" stroke-linecap="round">
+          <path d="M252 120 L105 345 L140 368 L235 250 Z"/>
+          <path d="M468 120 L615 345 L580 368 L485 250 Z"/>
+          <path d="M252 120 L235 250 L238 470 L482 470 L485 250 L468 120 L400 108
+                   Q360 152 320 108 Z"/>
+          <path d="M320 108 L332 126 L360 138 L388 126 L400 108" fill="none" stroke-width="2"/>
+        </g>
+        <!-- cuff lines -->
+        <g stroke="#6b4728" stroke-width="2">
+          <path d="M105 345 L140 368"/><path d="M615 345 L580 368"/>
+        </g>
+        <!-- dimension lines -->
+        <g stroke="#6b4728" stroke-width="1.6" fill="none">
+          <path d="M252 88 L468 88" marker-start="url(#ah)" marker-end="url(#ah)"/>
+          <path d="M235 262 L485 262" marker-start="url(#ah)" marker-end="url(#ah)"/>
+          <path d="M237 366 L483 366" marker-start="url(#ah)" marker-end="url(#ah)"/>
+          <path d="M238 452 L482 452" marker-start="url(#ah)" marker-end="url(#ah)"/>
+          <path d="M672 120 L672 470" marker-start="url(#ah)" marker-end="url(#ah)"/>
+          <path d="M478 120 L666 120" stroke-dasharray="4 5" stroke-width="1"/>
+          <path d="M492 470 L666 470" stroke-dasharray="4 5" stroke-width="1"/>
+          <!-- sleeve length, offset outside the RIGHT sleeve -->
+          <path d="M491 105 L638 330" marker-start="url(#ah)" marker-end="url(#ah)"/>
+        </g>
+        <!-- sleeve width leaders: legend at upper LEFT, dots on left sleeve -->
+        <g stroke="#a98b6b" stroke-width="1.2" fill="none">
+          <path d="M148 74 L200 210"/>
+          <path d="M150 100 L164 300"/>
+          <path d="M143 126 L122 356"/>
+        </g>
+        <g fill="#6b4728">
+          <circle cx="200" cy="210" r="3.5"/><circle cx="164" cy="300" r="3.5"/><circle cx="122" cy="356" r="3.5"/>
+        </g>
+        <!-- labels -->
+        <g font-family="Georgia, serif" font-size="20" fill="#2c2115">
+          <text x="360" y="78" text-anchor="middle">19&#8243; shoulder</text>
+          <text x="360" y="252" text-anchor="middle">22&#8243; chest</text>
+          <text x="360" y="356" text-anchor="middle">21&#189;&#8243; belly</text>
+          <text x="360" y="442" text-anchor="middle">21&#189;&#8243; bottom</text>
+          <text x="700" y="295" text-anchor="middle" transform="rotate(-90 700 295)">28&#8243; length</text>
+          <text x="583" y="205" text-anchor="middle" transform="rotate(56.8 583 205)">26&#190;&#8243; sleeve</text>
+          <text x="12" y="70" text-anchor="start">9&#189;&#8243; at armpit</text>
+          <text x="12" y="98" text-anchor="start">6&#189;&#8243; mid-sleeve</text>
+          <text x="12" y="126" text-anchor="start">4&#189;&#8243; above cuff</text>
+        </g>
+        <g font-family="Arial, sans-serif" font-size="12.5" fill="#5c4c3a">
+          <text x="12" y="44">Sleeve widths, flat:</text>
+        </g>
+        <!-- bottom info strip -->
+        <line x1="30" y1="512" x2="690" y2="512" stroke="#d9cbb4" stroke-width="1"/>
+        <g font-family="Arial, sans-serif" font-size="13.5" fill="#5c4c3a">
+          <text x="360" y="538" text-anchor="middle">All widths measured with the shirt laid flat, edge to edge &#183; neck 17&#8243; (unchanged)</text>
+        </g>
+        <g font-family="Georgia, serif" font-size="20" fill="#2c2115">
+          <text x="360" y="572" text-anchor="middle">Wearer: 6&#8242;2&#8243; / 188 cm <tspan fill="#b8321c">(not 6&#8242;4&#8243;)</tspan> &#183; 200 lb / 91 kg</text>
+          <text x="360" y="599" text-anchor="middle">chest 45&#8243; &#183; neck 17&#8243;</text>
+        </g>
+      </svg>
     </div>
 
-    <div class="spec-flex">
-      <div class="diagram">
-        <svg viewBox="0 0 720 560" role="img" aria-label="Flat shirt diagram with target measurements">
-          <defs>
-            <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
-              <path d="M0 0 L10 5 L0 10 z" fill="#6b4728"/>
-            </marker>
-          </defs>
-          <g stroke="#5c4c3a" stroke-width="2.5" fill="#fffdf7" stroke-linejoin="round" stroke-linecap="round">
-            <path d="M252 120 L105 345 L140 368 L235 250 Z"/>
-            <path d="M468 120 L615 345 L580 368 L485 250 Z"/>
-            <path d="M252 120 L235 250 L238 470 L482 470 L485 250 L468 120 L400 108
-                     Q360 152 320 108 Z"/>
-            <path d="M320 108 L332 126 L360 138 L388 126 L400 108" fill="none" stroke-width="2"/>
-          </g>
-          <g stroke="#6b4728" stroke-width="2">
-            <path d="M105 345 L140 368"/><path d="M615 345 L580 368"/>
-          </g>
-          <g stroke="#6b4728" stroke-width="1.6" fill="none">
-            <path d="M252 88 L468 88" marker-start="url(#ah)" marker-end="url(#ah)"/>
-            <path d="M235 262 L485 262" marker-start="url(#ah)" marker-end="url(#ah)"/>
-            <path d="M237 366 L483 366" marker-start="url(#ah)" marker-end="url(#ah)"/>
-            <path d="M238 452 L482 452" marker-start="url(#ah)" marker-end="url(#ah)"/>
-            <path d="M672 120 L672 470" marker-start="url(#ah)" marker-end="url(#ah)"/>
-            <path d="M478 120 L666 120" stroke-dasharray="4 5" stroke-width="1"/>
-            <path d="M492 470 L666 470" stroke-dasharray="4 5" stroke-width="1"/>
-            <path d="M226 102 L79 327" marker-start="url(#ah)" marker-end="url(#ah)"/>
-          </g>
-          <g stroke="#a98b6b" stroke-width="1.2" fill="none">
-            <path d="M520 210 L556 464"/>
-            <path d="M556 300 L566 490"/>
-            <path d="M598 356 L580 516"/>
-          </g>
-          <g fill="#6b4728">
-            <circle cx="520" cy="210" r="3.5"/><circle cx="556" cy="300" r="3.5"/><circle cx="598" cy="356" r="3.5"/>
-          </g>
-          <g font-family="Georgia, serif" font-size="20" fill="#2c2115">
-            <text x="360" y="78" text-anchor="middle">19&#8243; shoulder</text>
-            <text x="360" y="252" text-anchor="middle">22&#8243; chest</text>
-            <text x="360" y="356" text-anchor="middle">21&#189;&#8243; belly</text>
-            <text x="360" y="442" text-anchor="middle">21&#189;&#8243; bottom</text>
-            <text x="700" y="295" text-anchor="middle" transform="rotate(-90 700 295)">28&#8243; length</text>
-            <text x="130" y="200" text-anchor="middle" transform="rotate(-56.8 130 200)">26&#190;&#8243; sleeve</text>
-            <text x="548" y="482" text-anchor="start">9&#189;&#8243; at armpit</text>
-            <text x="556" y="508" text-anchor="start">6&#189;&#8243; mid-sleeve</text>
-            <text x="564" y="534" text-anchor="start">4&#189;&#8243; above cuff</text>
-          </g>
-          <g font-family="Arial, sans-serif" font-size="13" fill="#5c4c3a">
-            <text x="12" y="500">All widths measured with the shirt laid flat,</text>
-            <text x="12" y="517">edge to edge &#183; neck 17&#8243; (unchanged)</text>
-          </g>
-        </svg>
-      </div>
-
-      <div>
-        <div class="table-scroll">
-        <table class="spec">
-          <caption>Version 2 target measurements (inches, laid flat)</caption>
-          <thead><tr><th>Measurement</th><th>Target</th><th>Version 1</th></tr></thead>
-          <tbody>
-            <tr><td>Body length, shoulder to bottom hem</td><td class="num">28</td><td class="v1">≈ 33 ✗ too long</td></tr>
-            <tr><td>Sleeve, attachment seam to cuff end</td><td class="num">26¾</td><td class="v1">≈ 29 ✗ too long</td></tr>
-            <tr><td>Sleeve width just above cuff (flat)</td><td class="num">4½</td><td class="v1">✗ much wider</td></tr>
-            <tr><td>Sleeve width at mid-sleeve (flat)</td><td class="num">6½</td><td class="v1">✗ much wider</td></tr>
-            <tr><td>Sleeve width at armpit (flat)</td><td class="num">9½</td><td class="v1">≈ 9½–10</td></tr>
-            <tr><td>Shoulder width, seam to seam</td><td class="num">19</td><td class="ok">19 ✓ correct</td></tr>
-            <tr><td>Body width under armpits (flat)</td><td class="num">22</td><td class="v1">≈ 22–23</td></tr>
-            <tr><td>Body width at belly (flat)</td><td class="num">21½</td><td></td></tr>
-            <tr><td>Body width at bottom hem (flat)</td><td class="num">21½</td><td class="v1">≈ 22</td></tr>
-            <tr><td>Neck</td><td class="num">17</td><td class="ok">✓ correct</td></tr>
-          </tbody>
-        </table>
-        </div>
-        <p class="unit-note">The two big changes: <strong>shorten the body about 5″</strong>,
-        <strong>shorten the sleeves about 2¼″</strong>, and <strong>taper the sleeves</strong> to the
-        widths shown.</p>
-      </div>
+    <div class="table-scroll">
+    <table class="spec">
+      <caption>Version 2 target measurements (inches, laid flat)</caption>
+      <thead><tr><th>Measurement</th><th>Target</th><th>Version 1</th></tr></thead>
+      <tbody>
+        <tr class="group"><td colspan="3"><span class="gmark bad">✗</span> Body — make shorter and slimmer</td></tr>
+        <tr><td>Body length, shoulder to bottom hem</td><td class="num">28</td><td class="v1">✗ about 33 — 5 too long</td></tr>
+        <tr><td>Body width under armpits (flat)</td><td class="num">22</td><td class="v1">✗ about 22–23 — slightly wide</td></tr>
+        <tr><td>Body width at belly (flat)</td><td class="num">21½</td><td>— not measured</td></tr>
+        <tr><td>Body width at bottom hem (flat)</td><td class="num">21½</td><td class="v1">✗ about 22 — slightly wide</td></tr>
+        <tr class="group"><td colspan="3"><span class="gmark bad">✗</span> Sleeves — make shorter and slimmer</td></tr>
+        <tr><td>Sleeve length, attachment seam to cuff end</td><td class="num">26¾</td><td class="v1">✗ about 29 — 2¼ too long</td></tr>
+        <tr><td>Sleeve width at armpit (flat)</td><td class="num">9½</td><td class="v1">✗ about 9½–10 — close, do not exceed 9½</td></tr>
+        <tr><td>Sleeve width at mid-sleeve (flat)</td><td class="num">6½</td><td class="v1">✗ much wider — taper strongly</td></tr>
+        <tr><td>Sleeve width just above cuff (flat)</td><td class="num">4½</td><td class="v1">✗ much wider — taper strongly</td></tr>
+        <tr class="group"><td colspan="3"><span class="gmark good">✓</span> Already correct — keep the same</td></tr>
+        <tr><td>Shoulder width, seam to seam</td><td class="num">19</td><td class="ok">✓ 19 — correct</td></tr>
+        <tr><td>Neck</td><td class="num">17</td><td class="ok">✓ 17 — correct</td></tr>
+      </tbody>
+    </table>
     </div>
+    <p class="unit-note">Version-1 numbers are readings from our tape-measure photos. The three big changes:
+    <strong>shorten the body about 5″</strong>, <strong>shorten the sleeves about 2¼″</strong>, and
+    <strong>taper the sleeves</strong> to the widths shown.</p>
+  </section>
 
-    <h4 class="sub"><span class="mark bad">✗</span> The problem — Version 1 is too big everywhere</h4>
-    <div class="grid" id="g-problem"></div>
-
-    <h4 class="sub"><span class="mark good">✓</span> The correct fit — a shirt that fits him perfectly</h4>
-    <p class="sec-intro">This grey shirt is <strong>only a fit reference</strong> — not the design.
-    Tap a photo, then <strong>tap the photo again to zoom in and read the tape measure</strong>.</p>
+  <!-- ============ 2. CORRECT FIT ============ -->
+  <section id="reference">
+    <div class="sec-head"><span class="sec-num">2</span><h2>Correct fit — reference shirt</h2></div>
+    <p class="sec-intro">This grey shirt fits the wearer perfectly. It is <strong>only a fit reference</strong> —
+    not the design. Tap a photo, then <strong>tap the photo again to zoom in and read the tape measure</strong>.</p>
     <div class="grid" id="g-correct"></div>
   </section>
 
-  <!-- ============ 2. DETAILS ============ -->
+  <!-- ============ 3. DETAILS ============ -->
   <section id="details">
-    <div class="sec-head"><span class="sec-num">2</span><h2>Details that need improvement</h2></div>
-    <p class="sec-intro">Three construction changes. Green&nbsp;✓ = how it must be (the original costume).
-    Red&nbsp;✗ = Version 1, which must change.</p>
+    <div class="sec-head"><span class="sec-num">3</span><h2>Details — make them exactly like these photos</h2></div>
+    <p class="sec-intro">All photos below show the <strong>original costume</strong>. These are the details that
+    were wrong on Version&nbsp;1 — please match the photos exactly.</p>
     <div id="fix-cards"></div>
-    <div class="callout"><strong>Also please check:</strong> ① the front-yoke piping curve — on the original it is a
-    small, tight hook that hugs the shoulder seam (photo T2); on Version 1 it is a large round loop that spreads
-    onto the sleeve. ② The piping and button color — it must be a <strong>warm, matte, medium chocolate brown</strong>,
-    not black and not shiny (compare with the target photos).</div>
-  </section>
+    <div class="callout"><strong>Color:</strong> the piping and the buttons are a <strong>warm, matte, medium
+    chocolate brown</strong> — not black, not shiny. Please match the color in these photos.</div>
 
-  <!-- ============ 3. TARGET ============ -->
-  <section id="target">
-    <div class="sec-head"><span class="sec-num">3</span><h2>Target photos — the original costume</h2></div>
-    <p class="sec-intro">Auction photos of the <strong>original screen-used shirt</strong> (cotton blend,
-    cream fabric). Every design detail should match these.</p>
-    <div class="grid" id="g-target"></div>
-  </section>
-
-  <!-- ============ 4. KEEP ============ -->
-  <section id="keep">
-    <div class="sec-head"><span class="sec-num">4</span><h2>Already correct — please keep</h2></div>
-    <p class="sec-intro">These parts of Version 1 are right. Please keep them the same.</p>
-    <ul class="right-list">
-      <li>Piping layout: collar, front placket, front and back yokes, cuff edges</li>
-      <li>Long pointed collar shape with piped edge</li>
-      <li>Rounded “shotgun” cuff style with piping</li>
-      <li>Two smile pockets, correctly placed and angled</li>
-      <li>Plain fabric — no embroidery</li>
-      <li>Shoulder width (19″) and neck size (17″)</li>
-      <li>Cream / off-white fabric color</li>
-    </ul>
+    <h4 class="sub">The complete shirt — overall reference</h4>
+    <div class="grid" id="g-complete"></div>
   </section>
 
 </main>
 
 <footer>
   <div class="wrap">
-    <p><strong>How to discuss this page:</strong> every photo has a label (T = target costume, M = fit
-    reference, F = first shirt, D = detail). Please mention the labels when you write to us — for example,
-    “see photo F7”.</p>
+    <p><strong>How to discuss this page:</strong> every photo has a label (T = original costume, M = fit
+    reference, D = detail close-up). Please mention the labels when you write to us — for example, “see photo T5”.</p>
     <p>Wearer: 6′2″ (188 cm), 200 lb (91 kg) · Prepared July 2026 · Chris Young · measurements in inches</p>
   </div>
 </footer>
@@ -337,68 +296,54 @@
 </dialog>
 
 <script>
-// ---------- photo data: [label, src, caption, badge(good|bad|none), extraClass] ----------
-const T = 'images/reference/', P = 'images/preferred/', I = 'images/incorrect/';
+// ---------- photo data: [label, src, caption, badge(good|none), extraClass] ----------
+const T = 'images/reference/', P = 'images/preferred/';
 const TH = d => d.replace('images/', 'images/thumbs/');
 
-const GALLERIES = {
-  'g-problem': [
-    ['F1', I+'IMG_5865.jpg', 'Worn: the cuffs completely cover the hands; the body is very loose and long.', 'bad'],
-    ['F10', I+'IMG_5875.jpg', 'Several inches of extra sleeve fabric can be pinched away.', 'bad'],
-    ['F7', I+'IMG_5871.jpg', 'Tape from the attachment seam: sleeve ends near 29″ — should be 26¾″.', 'bad'],
-    ['F12', I+'IMG_5907.jpg', 'Laid flat: front length ≈ 33″ — should be 28″.', 'bad'],
-  ],
-  'g-correct': [
-    ['M1', P+'IMG_5898.jpg', 'Chest width under the armpits, flat: 22″. Zoom in to read the tape.', 'good'],
-    ['M4', P+'IMG_5900.jpg', 'Body width at the belly, flat: 21½″.', 'good'],
-    ['M6', P+'IMG_5905.jpg', 'Sleeve, attachment seam to cuff end: 26¾″.', 'good'],
-  ],
-  'g-target': [
-    ['T1', T+'costume-03.jpg', 'Front: piping, brown buttons, smile pockets.', 'none'],
-    ['T2', T+'costume-02.jpg', 'Note the small, tight yoke-piping curve at the shoulder.', 'none'],
-    ['T3', T+'costume-04.jpg', 'Pockets: piped on both lips, slightly open, ends taper to a point.', 'none'],
-    ['T4', T+'costume-01.jpg', 'Back: yoke piping; each cuff has 4 brown buttons.', 'none'],
-    ['T5', T+'cuff-details.jpg', 'Both cuffs: piping around the edge, 4 sew-through brown buttons spaced along the opening.', 'none', 'natural'],
-    ['T7', T+'propstore-full-costume.jpg', 'The full costume.', 'none'],
-  ],
-  // used inside detail cards
-  'cards': [
-    ['D1', P+'detail-brown-working-buttons.jpg', 'Original: brown sew-through working buttons on the piped placket.', 'good'],
-    ['F22', I+'IMG_5882.jpg', 'Version 1: metal snap fittings inside the placket and cuff.', 'bad'],
-    ['D2', P+'detail-shotgun-cuffs.jpg', 'Original cuff: long shotgun shape, piped edge, brown buttons.', 'good'],
-    ['F21', I+'IMG_5881.jpg', 'Version 1 cuff: 4 dark shiny snaps, wrong cuff length.', 'bad'],
-    ['D3', P+'detail-smile-pocket.jpg', 'Original pocket: piped on both lips, sits slightly open.', 'good'],
-    ['F14', I+'IMG_5913.jpg', 'Version 1: pockets sewn flat with big arrowhead ends; large yoke loops.', 'bad'],
-  ],
+const PHOTOS = {
+  M1: ['M1', P+'IMG_5898.jpg', 'Chest width under the armpits, flat: 22″. Zoom in to read the tape.', 'good'],
+  M4: ['M4', P+'IMG_5900.jpg', 'Body width at the belly, flat: 21½″.', 'good'],
+  M6: ['M6', P+'IMG_5905.jpg', 'Sleeve, attachment seam to cuff end: 26¾″.', 'good'],
+  D1: ['D1', P+'detail-brown-working-buttons.jpg', 'Working brown buttons and buttonholes on the piped front placket.', 'good'],
+  D2: ['D2', P+'detail-shotgun-cuffs.jpg', 'Shotgun cuff: long rounded shape, piped edge, brown buttons.', 'good'],
+  T5: ['T5', T+'cuff-details.jpg', 'Both cuffs: 4 sew-through brown buttons spaced along the piped opening.', 'good', 'natural'],
+  D3: ['D3', P+'detail-smile-pocket.jpg', 'Smile pocket: piped on both lips, sits slightly open.', 'good'],
+  T3: ['T3', T+'costume-04.jpg', 'Pockets slightly open; ends taper to a small point. Brown placket buttons.', 'good'],
+  T2: ['T2', T+'costume-02.jpg', 'Front-yoke piping: a small, tight curve that hugs the shoulder seam.', 'good'],
+  T1: ['T1', T+'costume-03.jpg', 'Front of the original costume.', 'none'],
+  T4: ['T4', T+'costume-01.jpg', 'Back: yoke piping; each cuff has 4 brown buttons.', 'none'],
+  T7: ['T7', T+'propstore-full-costume.jpg', 'The full costume.', 'none'],
 };
+
+const GALLERY_CORRECT = ['M1', 'M4', 'M6'];
+const GALLERY_COMPLETE = ['T1', 'T4', 'T7'];
 
 const FIXES = [
   {
-    title: 'Working brown buttons on the front — no snaps',
-    body: 'Remove all snaps. Use <strong>real working buttons with buttonholes</strong> on the front placket. Buttons: small, round, <strong>matte medium-brown</strong>, sew-through (thread holes visible), like the original.',
-    correct: ['D1'], current: ['F22'],
+    title: 'Front: working brown buttons',
+    body: '<strong>Real working buttons with buttonholes</strong> on the front placket — no snaps anywhere on the shirt. Buttons: small, round, <strong>matte medium-brown</strong>, sew-through (thread holes visible).',
+    photos: ['D1'],
   },
   {
-    title: 'Working shotgun cuffs — 4 buttons, correct cuff length',
-    body: 'Each cuff needs <strong>4 working brown buttons with buttonholes</strong> — no snaps. Also <strong>correct the length of the cuff</strong> so it matches the original’s proportions, with the 4 buttons spaced evenly along the piped opening (photos T5 and D2).',
-    correct: ['D2', 'T5x'], current: ['F21'],
+    title: 'Shotgun cuffs: 4 working buttons, correct cuff length',
+    body: 'Each cuff needs <strong>4 working brown buttons with buttonholes</strong> — no snaps. Make the <strong>cuff length match these photos</strong>, with the 4 buttons <strong>spaced evenly along the piped opening</strong>.',
+    photos: ['D2', 'T5'],
   },
   {
-    title: 'Smile pockets — slightly open, plain pointed ends',
-    body: 'Make each pocket a <strong>real welt opening with piping on both lips</strong>, so it naturally sits <strong>slightly open</strong>. The ends must <strong>taper to a small point</strong> — remove the big arrowhead shapes used on Version 1.',
-    correct: ['D3', 'T3x'], current: ['F14'],
+    title: 'Smile pockets: slightly open, plain pointed ends',
+    body: 'Each pocket is a <strong>real welt opening with piping on both lips</strong>, so it naturally sits <strong>slightly open</strong>. The ends <strong>taper to a small point</strong> — no arrowhead shapes.',
+    photos: ['D3', 'T3'],
+  },
+  {
+    title: 'Front-yoke piping: small, tight curve',
+    body: 'The piping curve at each shoulder is <strong>small and tight, hugging the shoulder seam</strong> — it does not spread onto the sleeve.',
+    photos: ['T2'],
   },
 ];
 
-// build lookup, including duplicates of target photos used inside cards (label + 'x')
-const ALL = {};
-Object.values(GALLERIES).flat().forEach(p => { ALL[p[0]] = p; });
-ALL['T5x'] = ['T5', T+'cuff-details.jpg', 'Both cuffs of the original: 4 buttons spaced along the piped opening.', 'good', 'natural'];
-ALL['T3x'] = ['T3', T+'costume-04.jpg', 'Original pockets: slightly open, ends taper to a point.', 'good'];
-
 function figHTML(key) {
-  const [label, src, cap, badge, cls] = ALL[key];
-  const b = badge === 'good' ? 'b-good' : badge === 'bad' ? 'b-bad' : '';
+  const [label, src, cap, badge, cls] = PHOTOS[key];
+  const b = badge === 'good' ? 'b-good' : '';
   return `<figure class="ph ${b} ${cls || ''}" tabindex="0" role="button" data-key="${key}" aria-label="Enlarge photo ${label}">
     <span class="tag">${label}</span>
     <img src="${TH(src)}" alt="${cap.replace(/<[^>]+>/g,'').replace(/"/g,'&quot;')}" loading="lazy">
@@ -406,56 +351,37 @@ function figHTML(key) {
   </figure>`;
 }
 
-for (const id of ['g-problem', 'g-correct', 'g-target']) {
-  document.getElementById(id).innerHTML = GALLERIES[id].map(p => figHTML(p[0])).join('');
-}
-
+document.getElementById('g-correct').innerHTML = GALLERY_CORRECT.map(figHTML).join('');
+document.getElementById('g-complete').innerHTML = GALLERY_COMPLETE.map(figHTML).join('');
 document.getElementById('fix-cards').innerHTML = FIXES.map((f, i) => `
   <article class="fix">
     <h3><span class="n">${i + 1}.</span>${f.title}</h3>
     <p>${f.body}</p>
-    <div class="pair">
-      <div class="side">
-        <span class="side-label correct">✓ Correct — make it like this</span>
-        <div class="${f.correct.length > 1 ? 'duo' : 'solo'}">${f.correct.map(figHTML).join('')}</div>
-      </div>
-      <div class="side">
-        <span class="side-label current">✗ Wrong — version 1</span>
-        <div class="${f.current.length > 1 ? 'duo' : 'solo'}">${f.current.map(figHTML).join('')}</div>
-      </div>
-    </div>
+    <div class="${f.photos.length > 1 ? 'duo' : 'solo'}">${f.photos.map(figHTML).join('')}</div>
   </article>`).join('');
 
 // ---------- lightbox with zoom ----------
-const ORDER = [
-  ...GALLERIES['g-problem'], ...GALLERIES['g-correct'],
-  ...GALLERIES['cards'], ...GALLERIES['g-target'],
-].map(p => p[0]);
+const ORDER = ['M1', 'M4', 'M6', 'D1', 'D2', 'T5', 'D3', 'T3', 'T2', 'T1', 'T4', 'T7'];
 const lb = document.getElementById('lb'), lbImg = document.getElementById('lbImg'),
       lbCap = document.getElementById('lbCap'), lbScroll = document.getElementById('lbScroll');
 let cur = 0;
 
 function show(i) {
   cur = (i + ORDER.length) % ORDER.length;
-  const [label, src, cap] = ALL[ORDER[cur]];
+  const [label, src, cap] = PHOTOS[ORDER[cur]];
   lb.classList.remove('zoomed');
   lbImg.src = src;
   lbImg.alt = cap.replace(/<[^>]+>/g, '');
   lbCap.innerHTML = `<b>${label}</b> — ${cap}`;
 }
-function openFor(key) {
-  const label = ALL[key][0];
-  let idx = ORDER.indexOf(key);
-  if (idx === -1) idx = ORDER.indexOf(label);
-  show(idx === -1 ? 0 : idx);
-  lb.showModal();
-}
 document.addEventListener('click', e => {
   const fig = e.target.closest('figure.ph');
-  if (fig) openFor(fig.dataset.key);
+  if (fig) { show(ORDER.indexOf(fig.dataset.key)); lb.showModal(); }
 });
 document.addEventListener('keydown', e => {
-  if (e.key === 'Enter' && document.activeElement?.classList?.contains('ph')) openFor(document.activeElement.dataset.key);
+  if (e.key === 'Enter' && document.activeElement?.classList?.contains('ph')) {
+    show(ORDER.indexOf(document.activeElement.dataset.key)); lb.showModal();
+  }
   if (!lb.open) return;
   if (e.key === 'ArrowRight') show(cur + 1);
   if (e.key === 'ArrowLeft') show(cur - 1);
