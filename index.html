@@ -225,6 +225,15 @@
       </svg>
     </div>
 
+  </section>
+
+  <!-- ============ 2. CORRECT FIT ============ -->
+  <section id="reference">
+    <div class="sec-head"><span class="sec-num">2</span><h2>Correct fit — reference shirt</h2></div>
+    <p class="sec-intro">This grey shirt fits the wearer perfectly. It is <strong>only a fit reference</strong> —
+    not the design. Tap a photo, then <strong>tap the photo again to zoom in and read the tape measure</strong>.</p>
+    <div class="grid" id="g-correct"></div>
+
     <div class="table-scroll">
     <table class="spec">
       <caption>Version 2 target measurements (inches, laid flat)</caption>
@@ -249,14 +258,6 @@
     <p class="unit-note">Version-1 numbers are readings from our tape-measure photos. The three big changes:
     <strong>shorten the body about 5″</strong>, <strong>shorten the sleeves about 2¼″</strong>, and
     <strong>taper the sleeves</strong> to the widths shown.</p>
-  </section>
-
-  <!-- ============ 2. CORRECT FIT ============ -->
-  <section id="reference">
-    <div class="sec-head"><span class="sec-num">2</span><h2>Correct fit — reference shirt</h2></div>
-    <p class="sec-intro">This grey shirt fits the wearer perfectly. It is <strong>only a fit reference</strong> —
-    not the design. Tap a photo, then <strong>tap the photo again to zoom in and read the tape measure</strong>.</p>
-    <div class="grid" id="g-correct"></div>
   </section>
 
   <!-- ============ 3. DETAILS ============ -->
@@ -298,6 +299,9 @@ const PHOTOS = {
   M5: ['M5', P+'IMG_5902.jpg', 'The sleeve is measured from this seam, where the sleeve joins the body.', 'good'],
   M6: ['M6', P+'IMG_5905.jpg', 'Sleeve, attachment seam to cuff end: 26¾″.', 'good'],
   M7: ['M7', P+'IMG_5904.jpg', 'Sleeve check, measured from the cuff back to the attachment seam.', 'good'],
+  M10: ['M10', P+'IMG_5903.jpg', 'Sleeve width at the mid-sleeve, flat: 6½″.', 'good'],
+  M2: ['M2', P+'IMG_5896.jpg', 'Shirt length, from the shoulder line down to the hem: 28″.', 'good'],
+  M8: ['M8', P+'IMG_5901.jpg', 'Shoulder width, seam to seam across the back: 19″.', 'good'],
   D1: ['D1', P+'detail-brown-working-buttons.jpg', 'Working brown buttons and buttonholes on the piped front placket.', 'good'],
   D2: ['D2', P+'detail-shotgun-cuffs.jpg', 'Shotgun cuff: long rounded shape, piped edge, brown buttons.', 'good'],
   T5: ['T5', T+'cuff-details.jpg', 'Both cuffs: 4 sew-through brown buttons spaced along the piped opening.', 'good', 'natural'],
@@ -309,7 +313,7 @@ const PHOTOS = {
   T7: ['T7', T+'propstore-full-costume.jpg', 'The full costume.', 'none'],
 };
 
-const GALLERY_CORRECT = ['M1', 'M4', 'M5', 'M6', 'M7'];
+const GALLERY_CORRECT = ['M5', 'M6', 'M7', 'M10', 'M1', 'M4', 'M2', 'M8'];
 const GALLERY_COMPLETE = ['T1', 'T4', 'T7'];
 
 const FIXES = [
@@ -355,7 +359,7 @@ document.getElementById('fix-cards').innerHTML = FIXES.map((f, i) => `
   </article>`).join('');
 
 // ---------- lightbox with zoom ----------
-const ORDER = ['M1', 'M4', 'M5', 'M6', 'M7', 'D1', 'D2', 'T5', 'D3', 'T3', 'T2', 'T1', 'T4', 'T7'];
+const ORDER = ['M5', 'M6', 'M7', 'M10', 'M1', 'M4', 'M2', 'M8', 'D1', 'D2', 'T5', 'D3', 'T3', 'T2', 'T1', 'T4', 'T7'];
 const lb = document.getElementById('lb'), lbImg = document.getElementById('lbImg'),
       lbCap = document.getElementById('lbCap'), lbScroll = document.getElementById('lbScroll');
 let cur = 0;
