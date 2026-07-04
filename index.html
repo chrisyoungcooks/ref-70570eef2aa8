@@ -52,6 +52,7 @@
   figure.ph:hover, figure.ph:focus-visible { transform: translateY(-3px); box-shadow: 0 10px 22px rgba(60,40,15,.14); outline: none; }
   figure.ph img { width: 100%; aspect-ratio: 4 / 4.4; object-fit: cover; display: block; background: #eee7d8; }
   figure.ph.natural img { aspect-ratio: auto; object-fit: contain; }
+  figure.ph.fit img { object-fit: contain; }
   .grid figure.ph.natural, .duo figure.ph.natural { grid-column: 1 / -1; }
   figure.ph figcaption { padding: 9px 11px 11px; font-size: 13px; color: var(--ink-soft); line-height: 1.4; }
   .tag { position: absolute; top: 8px; left: 8px; z-index: 2; font-size: 11px; font-weight: 700; letter-spacing: .06em; background: rgba(44,33,21,.82); color: #f6f1e6; border-radius: 3px; padding: 2px 7px; }
@@ -324,21 +325,21 @@ const PHOTOS = {
   M2: ['M2', P+'IMG_5896.jpg', 'Body length, from the shoulder down to the hem: 28″.', 'good'],
   M8: ['M8', P+'IMG_5901.jpg', 'Shoulder width, seam to seam across the back: 19″.', 'good'],
   D1: ['D1', P+'detail-brown-working-buttons.jpg', 'Working brown buttons and buttonholes on the piped front placket.', 'good'],
-  D2: ['D2', P+'detail-shotgun-cuffs-annot.jpg', 'Cuff shown OPEN: buttons on one side, 4 buttonhole slits on the flap (hard to see in this photo). The buttons are functional.', 'good'],
+  D2: ['D2', P+'detail-shotgun-cuffs-annot.jpg', 'Cuff shown OPEN. Solid circles: the 4 buttons. Dashed circles: the 4 buttonhole slits on the flap (hard to see). The buttons are functional.', 'good', 'fit'],
   T5: ['T5', T+'cuff-details-annot.jpg', 'Both cuffs close with 4 working brown buttons spaced along the piped opening. The buttons are functional, not decoration.', 'good', 'natural'],
-  D3: ['D3', P+'detail-smile-pocket-annot.jpg', 'Smile pocket: piping on both lips (edges), small open gap, ends join in a point.', 'good'],
+  D3: ['D3', P+'detail-smile-pocket-annot.jpg', 'Smile pocket: piping on both lips (edges), small open gap, ends join in a point.', 'good', 'fit'],
   T3: ['T3', T+'costume-04.jpg', 'Pockets slightly open; ends taper to a small point. Brown placket buttons.', 'good'],
   T2: ['T2', T+'costume-02.jpg', 'Front-yoke piping: a small, tight curve that hugs the shoulder seam.', 'good'],
   T1: ['T1', T+'costume-03.jpg', 'Front of the original costume.', 'good'],
   T4: ['T4', T+'costume-01.jpg', 'Back: yoke piping; each cuff has 4 brown buttons.', 'good'],
   T7: ['T7', T+'propstore-full-costume.jpg', 'The full costume.', 'good'],
-  T8: ['T8', T+'scruggs-still-shoulders.jpg', 'From the movie: on each shoulder, the piping makes a small, tight curl close to the seam.', 'good'],
-  F21: ['F21', I+'crop-cuff-snaps.jpg', 'Cuff closed with snaps (press studs) — wrong. Version 2: 4 working buttons with buttonholes.', 'bad'],
-  F22: ['F22', I+'crop-inside-snaps.jpg', 'Metal snaps inside the placket and cuff — wrong. No snaps anywhere on Version 2.', 'bad'],
-  F14: ['F14', I+'crop-pockets-wrong.jpg', 'Pockets sewn flat with arrow ends — wrong. Make a small open gap and pointed ends (photo D3).', 'bad'],
-  F7: ['F7', I+'crop-sleeve-long.jpg', 'Sleeve about 29″ — too long. Version 2: 26½″ from the attachment seam.', 'bad'],
-  F12: ['F12', I+'crop-body-long.jpg', 'Body length about 33″ — too long. Version 2: 28″ from shoulder to hem.', 'bad'],
-  F10: ['F10', I+'crop-sleeve-wide.jpg', 'Too much loose fabric in the sleeve. Taper to 9½″ at armpit, 6½″ at mid-sleeve, 4½″ above cuff.', 'bad'],
+  T8: ['T8', T+'scruggs-still-shoulders.jpg', 'From the movie: on each shoulder, the piping makes a small, tight curl close to the seam.', 'good', 'fit'],
+  F21: ['F21', I+'crop-cuff-snaps.jpg', 'Cuff closed with snaps (press studs) — wrong. Version 2: 4 working buttons with buttonholes.', 'bad', 'fit'],
+  F22: ['F22', I+'crop-inside-snaps.jpg', 'Metal snaps inside the placket and cuff — wrong. No snaps anywhere on Version 2.', 'bad', 'fit'],
+  F14: ['F14', I+'crop-pockets-wrong.jpg', 'Pockets sewn flat with arrow ends — wrong. Make a small open gap and pointed ends (photo D3).', 'bad', 'fit'],
+  F7: ['F7', I+'crop-sleeve-long.jpg', 'Sleeve about 29″ — too long. Version 2: 26½″ from the attachment seam.', 'bad', 'fit'],
+  F12: ['F12', I+'crop-body-long.jpg', 'Body length about 33″ — too long. Version 2: 28″ from shoulder to hem.', 'bad', 'fit'],
+  F10: ['F10', I+'crop-sleeve-wide.jpg', 'Too much loose fabric in the sleeve. Taper to 9½″ at armpit, 6½″ at mid-sleeve, 4½″ above cuff.', 'bad', 'fit'],
 };
 
 const GALLERY_CORRECT = ['M6', 'M5', 'M10', 'M7', 'M1', 'M4', 'M2', 'M8'];
