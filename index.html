@@ -332,6 +332,7 @@ const PHOTOS = {
   T1: ['T1', T+'costume-03.jpg', 'Front of the original costume.', 'good'],
   T4: ['T4', T+'costume-01.jpg', 'Back: yoke piping; each cuff has 4 brown buttons.', 'good'],
   T7: ['T7', T+'propstore-full-costume.jpg', 'The full costume.', 'good'],
+  T8: ['T8', T+'scruggs-still-shoulders.jpg', 'From the movie: on each shoulder, the piping makes a small, tight curl close to the seam.', 'good'],
   F21: ['F21', I+'crop-cuff-snaps.jpg', 'Cuff closed with snaps (press studs) — wrong. Version 2: 4 working buttons with buttonholes.', 'bad'],
   F22: ['F22', I+'crop-inside-snaps.jpg', 'Metal snaps inside the placket and cuff — wrong. No snaps anywhere on Version 2.', 'bad'],
   F14: ['F14', I+'crop-pockets-wrong.jpg', 'Pockets sewn flat with arrow ends — wrong. Make a small open gap and pointed ends (photo D3).', 'bad'],
@@ -363,7 +364,7 @@ const FIXES = [
   {
     title: 'Front-yoke piping: small, tight curve',
     body: 'The piping curve at each shoulder is <strong>small and tight, staying very close to the shoulder seam</strong>. It does not spread onto the sleeve.',
-    photos: ['T2'],
+    photos: ['T2', 'T8'],
   },
 ];
 
@@ -388,7 +389,7 @@ document.getElementById('fix-cards').innerHTML = FIXES.map((f, i) => `
   </article>`).join('');
 
 // ---------- lightbox with zoom ----------
-const ORDER = ['M6', 'M5', 'M10', 'M7', 'M1', 'M4', 'M2', 'M8', 'D1', 'D2', 'T5', 'D3', 'T3', 'T2', 'T1', 'T4', 'T7', 'F7', 'F12', 'F10', 'F14', 'F21', 'F22'];
+const ORDER = ['M6', 'M5', 'M10', 'M7', 'M1', 'M4', 'M2', 'M8', 'D1', 'D2', 'T5', 'D3', 'T3', 'T2', 'T8', 'T1', 'T4', 'T7', 'F7', 'F12', 'F10', 'F14', 'F21', 'F22'];
 const lb = document.getElementById('lb'), lbImg = document.getElementById('lbImg'),
       lbCap = document.getElementById('lbCap'), lbScroll = document.getElementById('lbScroll');
 let cur = 0;
