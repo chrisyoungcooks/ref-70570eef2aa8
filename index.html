@@ -95,8 +95,7 @@
 
   h4.sub { font-family: var(--serif); font-size: 19px; margin: 26px 0 12px; color: var(--ink); }
 
-  footer { border-top: 3px double var(--piping-soft); margin-top: 42px; padding: 24px 0 60px; font-size: 14px; color: var(--ink-soft); }
-  footer .wrap { display: flex; flex-direction: column; gap: 6px; }
+  main { padding-bottom: 70px; }
 
   /* ---------- lightbox ---------- */
   dialog.lb { border: none; background: rgba(20,14,8,.94); max-width: 100vw; max-height: 100vh; width: 100vw; height: 100vh; padding: 0; }
@@ -275,13 +274,6 @@
 
 </main>
 
-<footer>
-  <div class="wrap">
-    <p><strong>How to discuss this page:</strong> every photo has a label (T = original costume, M = fit
-    reference, D = detail close-up). Please mention the labels when you write to us — for example, “see photo T5”.</p>
-    <p>Wearer: 6′2″ (188 cm), 200 lb (91 kg) · Prepared July 2026 · Chris Young · measurements in inches</p>
-  </div>
-</footer>
 
 <dialog class="lb" id="lb" aria-label="Enlarged photo">
   <div class="lb-scroll" id="lbScroll"><img id="lbImg" src="" alt=""></div>
@@ -303,7 +295,9 @@ const TH = d => d.replace('images/', 'images/thumbs/');
 const PHOTOS = {
   M1: ['M1', P+'IMG_5898.jpg', 'Chest width under the armpits, flat: 22″. Zoom in to read the tape.', 'good'],
   M4: ['M4', P+'IMG_5900.jpg', 'Body width at the belly, flat: 21½″.', 'good'],
+  M5: ['M5', P+'IMG_5902.jpg', 'The sleeve is measured from this seam, where the sleeve joins the body.', 'good'],
   M6: ['M6', P+'IMG_5905.jpg', 'Sleeve, attachment seam to cuff end: 26¾″.', 'good'],
+  M7: ['M7', P+'IMG_5904.jpg', 'Sleeve check, measured from the cuff back to the attachment seam.', 'good'],
   D1: ['D1', P+'detail-brown-working-buttons.jpg', 'Working brown buttons and buttonholes on the piped front placket.', 'good'],
   D2: ['D2', P+'detail-shotgun-cuffs.jpg', 'Shotgun cuff: long rounded shape, piped edge, brown buttons.', 'good'],
   T5: ['T5', T+'cuff-details.jpg', 'Both cuffs: 4 sew-through brown buttons spaced along the piped opening.', 'good', 'natural'],
@@ -315,7 +309,7 @@ const PHOTOS = {
   T7: ['T7', T+'propstore-full-costume.jpg', 'The full costume.', 'none'],
 };
 
-const GALLERY_CORRECT = ['M1', 'M4', 'M6'];
+const GALLERY_CORRECT = ['M1', 'M4', 'M5', 'M6', 'M7'];
 const GALLERY_COMPLETE = ['T1', 'T4', 'T7'];
 
 const FIXES = [
@@ -361,7 +355,7 @@ document.getElementById('fix-cards').innerHTML = FIXES.map((f, i) => `
   </article>`).join('');
 
 // ---------- lightbox with zoom ----------
-const ORDER = ['M1', 'M4', 'M6', 'D1', 'D2', 'T5', 'D3', 'T3', 'T2', 'T1', 'T4', 'T7'];
+const ORDER = ['M1', 'M4', 'M5', 'M6', 'M7', 'D1', 'D2', 'T5', 'D3', 'T3', 'T2', 'T1', 'T4', 'T7'];
 const lb = document.getElementById('lb'), lbImg = document.getElementById('lbImg'),
       lbCap = document.getElementById('lbCap'), lbScroll = document.getElementById('lbScroll');
 let cur = 0;
