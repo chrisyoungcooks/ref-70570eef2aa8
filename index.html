@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Scruggs Shirt — Version 2 Specification</title>
+<style>
+  :root {
+    --paper: #f6f1e6;
+    --card: #fffdf7;
+    --ink: #2c2115;
+    --ink-soft: #5c4c3a;
+    --piping: #6b4728;
+    --piping-soft: #a98b6b;
+    --line: #d9cbb4;
+    --wrong: #9c3a24;
+    --right: #4d6b41;
+    --serif: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.55;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+
+  /* ---------- header ---------- */
+  header { padding: 48px 0 36px; border-bottom: 3px double var(--piping-soft); }
+  .eyebrow {
+    font-family: var(--sans); font-size: 12px; letter-spacing: .22em;
+    text-transform: uppercase; color: var(--piping); font-weight: 600;
+  }
+  h1 {
+    font-family: var(--serif); font-weight: 600;
+    font-size: clamp(30px, 5.4vw, 46px); line-height: 1.12;
+    margin: 10px 0 14px; text-wrap: balance;
+  }
+  .lede { max-width: 56ch; color: var(--ink-soft); font-size: 17px; }
+  .hero { display: grid; grid-template-columns: 1.25fr .9fr; gap: 32px; align-items: center; }
+  .hero-img img {
+    width: 100%; height: auto; display: block; border-radius: 4px;
+    border: 1px solid var(--line); box-shadow: 0 14px 34px rgba(60,40,15,.16);
+  }
+  .hero-img figcaption { font-size: 12.5px; color: var(--ink-soft); margin-top: 8px; text-align: center; }
+  nav.toc { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+  nav.toc a {
+    font-size: 13.5px; text-decoration: none; color: var(--piping);
+    border: 1px solid var(--piping-soft); border-radius: 999px; padding: 5px 13px;
+    background: var(--card); font-weight: 500;
+  }
+  nav.toc a:hover, nav.toc a:focus-visible { background: var(--piping); color: var(--card); outline: none; }
+
+  /* ---------- sections ---------- */
+  section { padding: 52px 0 12px; scroll-margin-top: 12px; }
+  .sec-head { display: flex; align-items: baseline; gap: 14px; border-bottom: 1px solid var(--line); padding-bottom: 10px; margin-bottom: 8px; }
+  .sec-num { font-family: var(--serif); font-size: 30px; color: var(--piping-soft); }
+  h2 { font-family: var(--serif); font-weight: 600; font-size: clamp(23px, 3.4vw, 30px); }
+  .sec-intro { max-width: 68ch; color: var(--ink-soft); margin: 12px 0 22px; }
+  .sec-intro strong { color: var(--ink); }
+
+  /* ---------- galleries ---------- */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 14px; margin-bottom: 26px; }
+  .grid.small { grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); }
+  figure.ph {
+    background: var(--card); border: 1px solid var(--line); border-radius: 4px;
+    overflow: hidden; cursor: zoom-in; position: relative;
+    transition: transform .18s ease, box-shadow .18s ease;
+  }
+  figure.ph:hover, figure.ph:focus-visible { transform: translateY(-3px); box-shadow: 0 10px 22px rgba(60,40,15,.14); outline: none; }
+  figure.ph img { width: 100%; aspect-ratio: 4 / 4.6; object-fit: cover; display: block; background: #eee7d8; }
+  figure.ph.landscape img { aspect-ratio: 4 / 3; }
+  figure.ph figcaption { padding: 9px 11px 11px; font-size: 13px; color: var(--ink-soft); line-height: 1.4; }
+  .tag {
+    position: absolute; top: 8px; left: 8px; z-index: 2;
+    font-size: 11px; font-weight: 700; letter-spacing: .06em;
+    background: rgba(44,33,21,.82); color: #f6f1e6; border-radius: 3px; padding: 2px 7px;
+  }
+
+  /* ---------- measurements ---------- */
+  .spec-flex { display: grid; grid-template-columns: 1.1fr 1fr; gap: 28px; align-items: start; margin-bottom: 30px; }
+  .diagram { background: var(--card); border: 1px solid var(--line); border-radius: 4px; padding: 14px; }
+  .diagram svg { width: 100%; height: auto; display: block; }
+  table.spec { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--line); font-size: 14.5px; }
+  table.spec caption { text-align: left; font-family: var(--serif); font-size: 17px; padding: 12px 14px 6px; font-weight: 600; }
+  table.spec th, table.spec td { padding: 8px 12px; border-top: 1px solid var(--line); text-align: left; vertical-align: top; }
+  table.spec th { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); border-top: none; }
+  table.spec td.num { font-variant-numeric: tabular-nums; font-weight: 700; color: var(--piping); white-space: nowrap; }
+  table.spec td.v1 { color: var(--wrong); white-space: nowrap; }
+  table.spec td.ok { color: var(--right); }
+  .unit-note { font-size: 13px; color: var(--ink-soft); margin: 8px 2px 0; }
+
+  /* ---------- fix cards ---------- */
+  .fix {
+    background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--piping);
+    border-radius: 4px; padding: 22px 22px 18px; margin-bottom: 22px;
+  }
+  .fix h3 { font-family: var(--serif); font-size: 21px; font-weight: 600; margin-bottom: 6px; }
+  .fix h3 .n { color: var(--piping-soft); margin-right: 6px; }
+  .fix p { max-width: 72ch; color: var(--ink-soft); margin-bottom: 14px; }
+  .fix p strong { color: var(--ink); }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .pair .side { display: flex; flex-direction: column; gap: 8px; }
+  .side-label { font-size: 11.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+  .side-label.correct { color: var(--right); }
+  .side-label.current { color: var(--wrong); }
+  .side .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .side figure.ph figcaption { font-size: 12.5px; }
+  .callout {
+    border: 1px dashed var(--piping-soft); background: #fbf7ec; border-radius: 4px;
+    padding: 14px 18px; font-size: 14.5px; color: var(--ink-soft); max-width: 76ch; margin-bottom: 26px;
+  }
+
+  /* ---------- what's right ---------- */
+  ul.right-list { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; margin-bottom: 26px; }
+  ul.right-list li {
+    background: var(--card); border: 1px solid var(--line); border-radius: 4px;
+    padding: 10px 14px 10px 38px; font-size: 14.5px; position: relative; color: var(--ink-soft);
+  }
+  ul.right-list li::before { content: "✓"; position: absolute; left: 14px; color: var(--right); font-weight: 700; }
+
+  h4.sub { font-family: var(--serif); font-size: 18px; margin: 8px 0 12px; color: var(--ink); }
+
+  footer { border-top: 3px double var(--piping-soft); margin-top: 44px; padding: 26px 0 60px; font-size: 14px; color: var(--ink-soft); }
+  footer .wrap { display: flex; flex-direction: column; gap: 6px; }
+
+  /* ---------- lightbox ---------- */
+  dialog.lb { border: none; background: rgba(20,14,8,.93); max-width: 100vw; max-height: 100vh; width: 100vw; height: 100vh; padding: 0; }
+  dialog.lb::backdrop { background: rgba(20,14,8,.93); }
+  .lb-inner { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 18px; }
+  .lb-inner img { max-width: 100%; max-height: calc(100vh - 110px); object-fit: contain; border-radius: 3px; }
+  .lb-cap { color: #efe7d6; font-size: 14px; text-align: center; max-width: 80ch; }
+  .lb-cap b { color: #fff; }
+  .lb-btn {
+    position: fixed; top: 50%; transform: translateY(-50%);
+    background: rgba(246,241,230,.14); color: #f6f1e6; border: none; font-size: 26px;
+    width: 46px; height: 64px; cursor: pointer; border-radius: 4px;
+  }
+  .lb-btn:hover { background: rgba(246,241,230,.3); }
+  #lbPrev { left: 10px; } #lbNext { right: 10px; }
+  #lbClose { position: fixed; top: 12px; right: 14px; transform: none; height: 46px; font-size: 20px; }
+
+  /* ---------- motion ---------- */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    figure.ph { transition: none; }
+  }
+
+  @media (max-width: 760px) {
+    .hero { grid-template-columns: 1fr; }
+    .spec-flex { grid-template-columns: 1fr; }
+    .pair { grid-template-columns: 1fr; }
+    header { padding-top: 34px; }
+    section { padding-top: 40px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap hero">
+    <div>
+      <p class="eyebrow">Shirt revision guide · Version 2</p>
+      <h1>The Buster Scruggs Shirt</h1>
+      <p class="lede">Thank you for the first shirt — the design is very close to the original movie costume.
+      This page shows exactly what to change for Version&nbsp;2: the correct measurements, six construction
+      changes, and photos of the fit problems on Version&nbsp;1. All measurements are in <strong>inches</strong>.</p>
+      <nav class="toc" aria-label="Sections">
+        <a href="#target">1 · The target</a>
+        <a href="#measurements">2 · Measurements</a>
+        <a href="#changes">3 · Six changes</a>
+        <a href="#right">4 · Already correct</a>
+        <a href="#fit">5 · Fit problems</a>
+      </nav>
+    </div>
+    <figure class="hero-img">
+      <img src="images/reference/costume-02.jpg" alt="The original Buster Scruggs costume shirt on a mannequin" fetchpriority="high">
+      <figcaption>The original screen-used costume. This is the shirt we are copying.</figcaption>
+    </figure>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ 1. TARGET ============ -->
+  <section id="target">
+    <div class="sec-head"><span class="sec-num">1</span><h2>The target — the original costume</h2></div>
+    <p class="sec-intro">These are auction photos of the <strong>original screen-used shirt</strong> from
+    <em>The Ballad of Buster Scruggs</em> (cotton blend, cream fabric, warm chocolate-brown piping and buttons).
+    Every design detail should match these photos. Click any photo to enlarge it.</p>
+    <div class="grid" id="g-target"></div>
+  </section>
+
+  <!-- ============ 2. MEASUREMENTS ============ -->
+  <section id="measurements">
+    <div class="sec-head"><span class="sec-num">2</span><h2>Correct fit &amp; measurements</h2></div>
+    <p class="sec-intro"><strong>Important:</strong> the grey shirt in the photos below is a different shirt that
+    fits perfectly — it is only a <strong>fit reference</strong>, not a design reference. Please build Version&nbsp;2
+    to the numbers in this table. All width measurements are taken with the shirt <strong>laid flat</strong>,
+    edge to edge.</p>
+
+    <div class="spec-flex">
+      <div class="diagram">
+        <svg viewBox="0 0 720 560" role="img" aria-label="Flat shirt diagram with target measurements">
+          <defs>
+            <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+              <path d="M0 0 L10 5 L0 10 z" fill="#6b4728"/>
+            </marker>
+          </defs>
+          <!-- shirt outline -->
+          <g stroke="#5c4c3a" stroke-width="2.5" fill="#fffdf7" stroke-linejoin="round" stroke-linecap="round">
+            <!-- left sleeve -->
+            <path d="M252 120 L105 345 L140 368 L235 250 Z"/>
+            <!-- right sleeve -->
+            <path d="M468 120 L615 345 L580 368 L485 250 Z"/>
+            <!-- body -->
+            <path d="M252 120 L235 250 L238 470 L482 470 L485 250 L468 120 L400 108
+                     Q360 152 320 108 Z"/>
+            <!-- collar -->
+            <path d="M320 108 L332 126 L360 138 L388 126 L400 108" fill="none" stroke-width="2"/>
+          </g>
+          <!-- cuff lines -->
+          <g stroke="#6b4728" stroke-width="2">
+            <path d="M105 345 L140 368"/><path d="M615 345 L580 368"/>
+          </g>
+          <!-- width dimension lines -->
+          <g stroke="#6b4728" stroke-width="1.6" fill="none">
+            <path d="M252 88 L468 88" marker-start="url(#ah)" marker-end="url(#ah)"/>
+            <path d="M235 262 L485 262" marker-start="url(#ah)" marker-end="url(#ah)"/>
+            <path d="M237 366 L483 366" marker-start="url(#ah)" marker-end="url(#ah)"/>
+            <path d="M238 452 L482 452" marker-start="url(#ah)" marker-end="url(#ah)"/>
+            <path d="M672 120 L672 470" marker-start="url(#ah)" marker-end="url(#ah)"/>
+            <path d="M478 120 L666 120" stroke-dasharray="4 5" stroke-width="1"/>
+            <path d="M492 470 L666 470" stroke-dasharray="4 5" stroke-width="1"/>
+            <!-- sleeve length, offset outside the left sleeve -->
+            <path d="M226 102 L79 327" marker-start="url(#ah)" marker-end="url(#ah)"/>
+          </g>
+          <!-- sleeve width leaders -->
+          <g stroke="#a98b6b" stroke-width="1.2" fill="none">
+            <path d="M520 210 L556 464"/>
+            <path d="M556 300 L566 490"/>
+            <path d="M598 356 L580 516"/>
+          </g>
+          <g fill="#6b4728">
+            <circle cx="520" cy="210" r="3.5"/><circle cx="556" cy="300" r="3.5"/><circle cx="598" cy="356" r="3.5"/>
+          </g>
+          <!-- labels -->
+          <g font-family="Georgia, serif" font-size="20" fill="#2c2115">
+            <text x="360" y="78" text-anchor="middle">19&#8243; shoulder</text>
+            <text x="360" y="252" text-anchor="middle">22&#8243; chest</text>
+            <text x="360" y="356" text-anchor="middle">21&#189;&#8243; belly</text>
+            <text x="360" y="442" text-anchor="middle">21&#189;&#8243; bottom</text>
+            <text x="700" y="295" text-anchor="middle" transform="rotate(-90 700 295)">28&#8243; length</text>
+            <text x="130" y="200" text-anchor="middle" transform="rotate(-56.8 130 200)">26&#190;&#8243; sleeve</text>
+            <text x="548" y="482" text-anchor="start">9&#189;&#8243; at armpit</text>
+            <text x="556" y="508" text-anchor="start">6&#189;&#8243; mid-sleeve</text>
+            <text x="564" y="534" text-anchor="start">4&#189;&#8243; above cuff</text>
+          </g>
+          <g font-family="Arial, sans-serif" font-size="13" fill="#5c4c3a">
+            <text x="12" y="500">All widths measured with the shirt laid flat,</text>
+            <text x="12" y="517">edge to edge &#183; neck 17&#8243; (unchanged)</text>
+          </g>
+        </svg>
+      </div>
+
+      <div>
+        <table class="spec">
+          <caption>Version 2 target measurements (inches, laid flat)</caption>
+          <thead><tr><th>Measurement</th><th>Target</th><th>Version 1</th></tr></thead>
+          <tbody>
+            <tr><td>Body length, shoulder to bottom hem</td><td class="num">28</td><td class="v1">≈ 33 — too long</td></tr>
+            <tr><td>Sleeve, from attachment seam to cuff end</td><td class="num">26¾</td><td class="v1">≈ 29 — too long</td></tr>
+            <tr><td>Sleeve width just above cuff (flat)</td><td class="num">4½</td><td class="v1">much wider</td></tr>
+            <tr><td>Sleeve width at mid-sleeve (flat)</td><td class="num">6½</td><td class="v1">much wider</td></tr>
+            <tr><td>Sleeve width at armpit (flat)</td><td class="num">9½</td><td class="v1">≈ 9½–10</td></tr>
+            <tr><td>Shoulder width, seam to seam</td><td class="num">19</td><td class="ok">19 — correct ✓</td></tr>
+            <tr><td>Body width under armpits (flat)</td><td class="num">22</td><td class="v1">≈ 22–23</td></tr>
+            <tr><td>Body width at belly (flat)</td><td class="num">21½</td><td></td></tr>
+            <tr><td>Body width at bottom hem (flat)</td><td class="num">21½</td><td class="v1">≈ 22</td></tr>
+            <tr><td>Neck</td><td class="num">17</td><td class="ok">correct ✓</td></tr>
+          </tbody>
+        </table>
+        <p class="unit-note">Version-1 numbers are approximate readings from the tape-measure photos in
+        section&nbsp;5. The two big changes: <strong>shorten the body about 5 inches</strong> and
+        <strong>shorten the sleeves about 2¼ inches</strong>, and <strong>taper the sleeves</strong> to the
+        widths above.</p>
+      </div>
+    </div>
+
+    <h4 class="sub">Fit-reference photos (the grey shirt that fits correctly)</h4>
+    <div class="grid small" id="g-measure"></div>
+  </section>
+
+  <!-- ============ 3. CHANGES ============ -->
+  <section id="changes">
+    <div class="sec-head"><span class="sec-num">3</span><h2>Six changes for Version 2</h2></div>
+    <p class="sec-intro">Each change below shows the <strong>correct</strong> detail from the original costume
+    next to the <strong>current</strong> detail on Version&nbsp;1.</p>
+    <div id="fix-cards"></div>
+    <div class="callout"><strong>Color check:</strong> in our photos the Version-1 piping and snap caps look very
+    dark, almost black. The original costume uses a <strong>warm, matte, medium chocolate brown</strong> for both
+    the piping and the buttons (see photos T1–T5). Some of the difference may be our indoor lighting — please
+    compare the actual trim against the auction photos before sewing Version&nbsp;2.</div>
+  </section>
+
+  <!-- ============ 4. WHAT'S RIGHT ============ -->
+  <section id="right">
+    <div class="sec-head"><span class="sec-num">4</span><h2>Already correct — please keep</h2></div>
+    <p class="sec-intro">Version 1 got a lot right. Please keep all of these exactly the same in Version&nbsp;2.</p>
+    <ul class="right-list">
+      <li>Piping layout: collar edge, both sides of the front placket, front and back yokes, cuff edges</li>
+      <li>Long pointed collar shape with piped edge</li>
+      <li>Rounded “shotgun” cuff shape with piping around the curved opening</li>
+      <li>Four closures per cuff (correct number — they just need to be buttons, not snaps)</li>
+      <li>Two smile pockets, correctly placed and angled on the chest</li>
+      <li>Plain fabric — no embroidery, matching the original</li>
+      <li>Shoulder width (19″) and neck size (17″)</li>
+      <li>Cream/off-white fabric color</li>
+    </ul>
+  </section>
+
+  <!-- ============ 5. FIT PROBLEMS ============ -->
+  <section id="fit">
+    <div class="sec-head"><span class="sec-num">5</span><h2>Fit problems on Version 1</h2></div>
+    <p class="sec-intro">Photos of the first shirt being worn and measured. The body and sleeves are too long
+    and too loose everywhere — the shirt should be <strong>slim-fitting</strong>, following the measurements
+    in section&nbsp;2.</p>
+
+    <h4 class="sub">Worn on the body</h4>
+    <div class="grid" id="g-worn"></div>
+
+    <h4 class="sub">Measured with a tape</h4>
+    <div class="grid small" id="g-flat"></div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><strong>How to discuss this page:</strong> every photo has a label in its corner (T = target costume,
+    M = fit reference, F = first shirt). Please mention the labels when you write to us — for example,
+    “see photo F7”.</p>
+    <p>Prepared July 2026 · Chris Young · measurements in inches</p>
+  </div>
+</footer>
+
+<dialog class="lb" id="lb" aria-label="Enlarged photo">
+  <div class="lb-inner" id="lbInner">
+    <img id="lbImg" src="" alt="">
+    <p class="lb-cap" id="lbCap"></p>
+  </div>
+  <button class="lb-btn" id="lbPrev" aria-label="Previous photo">‹</button>
+  <button class="lb-btn" id="lbNext" aria-label="Next photo">›</button>
+  <button class="lb-btn" id="lbClose" aria-label="Close">✕</button>
+</dialog>
+
+<script>
+// ---------- photo data ----------
+const T = 'images/reference/', P = 'images/preferred/', I = 'images/incorrect/';
+const TH = d => d.replace('images/', 'images/thumbs/');
+
+const PHOTOS = {
+  target: [
+    ['T1', T+'costume-03.jpg', 'Front of the original: piping on collar, yokes and placket; brown buttons; smile pockets.'],
+    ['T2', T+'costume-02.jpg', 'Three-quarter view. Note the tight yoke piping curve that hugs the shoulder seam.'],
+    ['T3', T+'costume-04.jpg', 'Pocket detail: piped on both lips, sits slightly open, ends taper to a small point.'],
+    ['T4', T+'costume-01.jpg', 'Back: piping along the back yoke; rounded cuffs each with 4 brown buttons.'],
+    ['T5', T+'cuff-details.jpg', 'Cuff close-up: brown piping around the edge, 4 small sew-through brown buttons.', 'landscape'],
+    ['T6', T+'back-and-cuff-details.jpg', 'Back view with both cuffs visible.'],
+    ['T7', T+'propstore-full-costume.jpg', 'The full costume from the auction listing.'],
+    ['T8', T+'propstore-detail.jpg', 'Full costume, front. Shirt is cotton blend, cream color.'],
+    ['T9', T+'propstore-lot-photo.jpg', 'Auction lot photo (low resolution).'],
+  ],
+  measure: [
+    ['M1', P+'IMG_5898.jpg', 'Chest width under the armpits, laid flat — target 22″.'],
+    ['M2', P+'IMG_5896.jpg', 'Tape across the chest of the fit-reference shirt.'],
+    ['M3', P+'IMG_5899.jpg', 'Body width — target 21½″ at belly and bottom.'],
+    ['M4', P+'IMG_5900.jpg', 'Body width at the belly, laid flat.'],
+    ['M5', P+'IMG_5902.jpg', 'Tape zeroed where the sleeve attaches to the body — sleeve length starts here.'],
+    ['M6', P+'IMG_5905.jpg', 'Sleeve measured from attachment seam to cuff end — target 26¾″.'],
+    ['M7', P+'IMG_5904.jpg', 'Same sleeve measured from the cuff back to the shoulder.'],
+    ['M8', P+'IMG_5901.jpg', 'Sleeve length check along the top of the sleeve.'],
+    ['M9', P+'IMG_5897.jpg', 'Sleeve length check, folded across the body.'],
+    ['M10', P+'IMG_5903.jpg', 'Tape running from the attachment seam toward the cuff.'],
+    ['M11', P+'IMG_5906.jpg', 'Underarm seam, armpit to cuff.'],
+  ],
+  worn: [
+    ['F1', I+'IMG_5865.jpg', 'Front: the cuffs completely cover the hands; the body is very loose.'],
+    ['F2', I+'IMG_5866.jpg', 'Front: excess fabric balloons at the sides; hem reaches mid-thigh.'],
+    ['F3', I+'IMG_5867.jpg', 'Back, arms out: sleeves and body far too full; cuffs swallow the hands.'],
+    ['F4', I+'IMG_5868.jpg', 'Back: large folds of extra fabric; hem far below the seat.'],
+    ['F5', I+'IMG_5869.jpg', 'Side: the shirt billows away from the body and hangs long.'],
+    ['F6', I+'IMG_5870.jpg', 'Side: boxy drape with no shape through the waist.'],
+    ['F7', I+'IMG_5871.jpg', 'Tape from the attachment seam: cuff ends near 29″ — should be 26¾″.'],
+    ['F8', I+'IMG_5873.jpg', 'Same measurement, second angle: about 29″.'],
+    ['F9', I+'IMG_5874.jpg', 'Tape down the hanging arm — the cuff reaches the knuckles.'],
+    ['F10', I+'IMG_5875.jpg', 'Several inches of extra sleeve fabric can be pinched away — sleeves need a strong taper.'],
+    ['F11', I+'IMG_5872.jpg', 'Sleeve fabric bunching along the arm.'],
+  ],
+  flat: [
+    ['F12', I+'IMG_5907.jpg', 'Front length ≈ 33″ from collar seam to hem — target is 28″.'],
+    ['F13', I+'IMG_5912.jpg', 'Sleeve laid flat ≈ 29″ from attachment seam to cuff — target 26¾″.'],
+    ['F14', I+'IMG_5913.jpg', 'Chest width flat ≈ 22–23″. Also visible: pocket-end arrowheads and large yoke lobes (see changes 3 and 6).'],
+    ['F15', I+'IMG_5914.jpg', 'Width at mid-body, laid flat.'],
+    ['F16', I+'IMG_5915.jpg', 'Width near the bottom hem ≈ 22″ — target 21½″.'],
+    ['F17', I+'IMG_5910.jpg', 'Upper sleeve width ≈ 9–10″ flat — must taper to 6½″ at mid-sleeve and 4½″ above the cuff.'],
+    ['F18', I+'IMG_5908.jpg', 'Tape across the shoulder line.'],
+    ['F19', I+'IMG_5909.jpg', 'Tape set at the sleeve-attachment seam — sleeve length is measured from this seam.'],
+    ['F20', I+'IMG_5911.jpg', 'Tape running up the sleeve from the cuff.'],
+  ],
+  detail: [
+    ['D1', P+'detail-brown-working-buttons.jpg', 'Original: brown sew-through working buttons on the piped placket.'],
+    ['D2', P+'detail-shotgun-cuffs.jpg', 'Original: shotgun cuff with piping and brown working buttons.'],
+    ['D3', P+'detail-smile-pocket.jpg', 'Original: smile pocket piped on both lips, sitting slightly open.'],
+    ['F21', I+'IMG_5881.jpg', 'Version 1 cuff: 4 dark glossy snaps — must become 4 matte brown sew-through buttons.'],
+    ['F22', I+'IMG_5882.jpg', 'Version 1 inside view: metal snap fittings on placket and cuff — no snaps anywhere on Version 2.'],
+  ],
+};
+
+const FIXES = [
+  {
+    title: 'Working brown buttons on the front — no snaps',
+    body: 'Replace every snap on the front placket with <strong>real working buttons and buttonholes</strong>. Buttons should be small, round, <strong>matte medium-brown</strong>, sew-through (thread visible), like the original.',
+    correct: ['D1', 'T3'], current: ['F22', 'F1'],
+  },
+  {
+    title: 'Four working brown buttons on each cuff — no snaps',
+    body: 'The cuff shape, piping and the count of four closures are already correct. Only the hardware is wrong: replace the four snaps on each cuff with <strong>four working brown sew-through buttons with buttonholes</strong>.',
+    correct: ['D2', 'T5'], current: ['F21', 'F22'],
+  },
+  {
+    title: 'Smile pockets: slightly open, plain tapered ends',
+    body: 'Make each smile pocket a <strong>real welt opening with brown piping on both lips</strong>, so it naturally sits <strong>slightly open</strong> (you can see a sliver of the opening). The ends should <strong>taper to a small point</strong> — remove the large arrowhead / barb shapes used on Version 1.',
+    correct: ['D3', 'T3'], current: ['F14', 'F1'],
+  },
+  {
+    title: 'Sleeves: shorten to 26¾″ and taper strongly',
+    body: 'Shorten the sleeve to <strong>26¾″ measured from the seam where the sleeve attaches to the body, down to the end of the cuff</strong>. Also remove the bagginess: taper the sleeve to <strong>9½″ at the armpit, 6½″ at mid-sleeve, 4½″ just above the cuff</strong> (flat widths).',
+    correct: ['M6', 'M5'], current: ['F7', 'F10'],
+  },
+  {
+    title: 'Body: shorten to 28″ and follow the width table',
+    body: 'Shorten the body to <strong>28″ from the shoulder to the bottom hem</strong> (Version 1 is about 33″). Keep the body slim: <strong>22″ flat under the armpits, 21½″ at the belly, 21½″ at the hem</strong>. Shoulders (19″) and neck (17″) stay as they are.',
+    correct: ['M1', 'M3'], current: ['F12', 'F2'],
+  },
+  {
+    title: 'Front yoke piping: tighter curve on the shoulder',
+    body: 'On the original, the front yoke piping makes a <strong>small, tight hook that hugs the shoulder seam</strong> near the collar. On Version 1 the curve is a large round lobe that spreads onto the sleeve. Please make the curve smaller and closer to the shoulder seam, matching photo T2.',
+    correct: ['T2', 'T1'], current: ['F14', 'F18'],
+  },
+];
+
+// ---------- build galleries ----------
+const ALL = {};                       // label -> [label, src, caption]
+Object.values(PHOTOS).flat().forEach(p => ALL[p[0]] = p);
+const ORDER = Object.keys(ALL);
+
+function figHTML([label, src, cap, cls], lazy = true) {
+  return `<figure class="ph ${cls || ''}" tabindex="0" role="button" data-label="${label}" aria-label="Enlarge photo ${label}">
+    <span class="tag">${label}</span>
+    <img src="${TH(src)}" alt="${cap.replace(/<[^>]+>/g,'').replace(/"/g,'&quot;')}" ${lazy ? 'loading="lazy"' : ''}>
+    <figcaption><b>${label}</b> — ${cap}</figcaption>
+  </figure>`;
+}
+
+document.getElementById('g-target').innerHTML  = PHOTOS.target.map(p => figHTML(p)).join('');
+document.getElementById('g-measure').innerHTML = PHOTOS.measure.map(p => figHTML(p)).join('');
+document.getElementById('g-worn').innerHTML    = PHOTOS.worn.map(p => figHTML(p)).join('');
+document.getElementById('g-flat').innerHTML    = PHOTOS.flat.map(p => figHTML(p)).join('');
+
+document.getElementById('fix-cards').innerHTML = FIXES.map((f, i) => `
+  <article class="fix">
+    <h3><span class="n">${i + 1}.</span>${f.title}</h3>
+    <p>${f.body}</p>
+    <div class="pair">
+      <div class="side">
+        <span class="side-label correct">✓ Correct — the original</span>
+        <div class="duo">${f.correct.map(l => figHTML(ALL[l])).join('')}</div>
+      </div>
+      <div class="side">
+        <span class="side-label current">✗ Current — version 1</span>
+        <div class="duo">${f.current.map(l => figHTML(ALL[l])).join('')}</div>
+      </div>
+    </div>
+  </article>`).join('');
+
+// ---------- lightbox ----------
+const lb = document.getElementById('lb'), lbImg = document.getElementById('lbImg'), lbCap = document.getElementById('lbCap');
+let cur = 0;
+function show(i) {
+  cur = (i + ORDER.length) % ORDER.length;
+  const [label, src, cap] = ALL[ORDER[cur]];
+  lbImg.src = src;
+  lbImg.alt = cap.replace(/<[^>]+>/g, '');
+  lbCap.innerHTML = `<b>${label}</b> — ${cap}`;
+}
+document.addEventListener('click', e => {
+  const fig = e.target.closest('figure.ph');
+  if (fig) { show(ORDER.indexOf(fig.dataset.label)); lb.showModal(); }
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && document.activeElement?.classList?.contains('ph')) {
+    show(ORDER.indexOf(document.activeElement.dataset.label)); lb.showModal();
+  }
+  if (!lb.open) return;
+  if (e.key === 'ArrowRight') show(cur + 1);
+  if (e.key === 'ArrowLeft') show(cur - 1);
+});
+document.getElementById('lbNext').onclick = e => { e.stopPropagation(); show(cur + 1); };
+document.getElementById('lbPrev').onclick = e => { e.stopPropagation(); show(cur - 1); };
+document.getElementById('lbClose').onclick = () => lb.close();
+lb.addEventListener('click', e => { if (!e.target.closest('.lb-btn') && !e.target.closest('img')) lb.close(); });
+
+</script>
+</body>
+</html>
